@@ -17,9 +17,10 @@ import './App.css';
 
 const navLinks = [
   { label: 'About', href: '#about' },
+  { label: 'Experience', href: '#experience' },
   { label: 'Current', href: '#current-project' },
   { label: 'Projects', href: '#projects' },
-  { label: 'Experience', href: '#experience' },
+  { label: 'Research', href: '#research' },
   { label: 'Skills', href: '#skills' },
   { label: 'Contact', href: '#contact' },
 ];
@@ -35,12 +36,12 @@ const heroRoles = ['FPGA edge-detection pipeline', 'Embedded sensing boards', 'P
 
 const aboutCards = [
   {
-    title: 'Design Style',
-    text: 'I prefer modular architectures and clear signal boundaries so systems stay debuggable as complexity grows.',
+    title: 'University',
+    text: 'I am currently pursuing a B.S. in Electrical Engineering at UIUC (University of Illinois Urbana-Champaign), expected May 2027.',
   },
   {
-    title: 'Validation Style',
-    text: 'I use simulation plus instrument-driven bench checks to confirm behavior, not assumptions.',
+    title: 'Design + Validation',
+    text: 'I design modular systems with clear interfaces, then validate using simulation plus instrument-driven bench checks to confirm behavior under real constraints.',
   },
 ];
 
@@ -71,7 +72,7 @@ const currentProject = {
     { label: 'Target', value: 'Real-Time Demo' },
   ],
   tech: ['SystemVerilog', 'FPGA', 'OV7670', 'VGA', 'BRAM'],
-  github: 'https://github.com/',
+  github: 'https://github.com/Jbamidi/FPGA-Edge-Detection-Pipeline',
 };
 
 const featuredProjects = [
@@ -87,7 +88,7 @@ const featuredProjects = [
       'Closed timing and verified utilization on the RealDigital Blackboard board.',
     ],
     media: { kind: 'Logic Capture', label: 'Pipeline Stage Activity', metric: 'Forwarding + hazard control verified.', tone: 'cpu' },
-    link: { label: 'GitHub', href: 'https://github.com/', kind: 'github' },
+    link: { label: 'GitHub', href: 'https://github.com/Jbamidi/RISC-V-CPU-Core-Pipelined', kind: 'github' },
   },
   {
     title: 'Hardware-Accelerated Computer Vision Pipeline',
@@ -101,7 +102,7 @@ const featuredProjects = [
       'Optimized datapath and memory flow for deterministic real-time performance.',
     ],
     media: { kind: 'Video Feed', label: 'OV7670 to VGA Overlay', metric: 'Real-time tracking with stable synchronization.', tone: 'vision' },
-    link: { label: 'GitHub', href: 'https://github.com/', kind: 'github' },
+    link: { label: 'GitHub', href: 'https://github.com/Jbamidi/Hardware-Accelerated-Computer-Vision-Pipeline', kind: 'github' },
   },
   {
     title: 'FPGA Edge Detection Pipeline',
@@ -115,7 +116,7 @@ const featuredProjects = [
       'Integrating with camera/VGA path for full hardware pipeline demonstration.',
     ],
     media: { kind: 'Current Build', label: 'Edge Stream Analyzer', metric: 'Live threshold tuning and edge quality checks.', tone: 'edge' },
-    link: { label: 'GitHub', href: 'https://github.com/', kind: 'github' },
+    link: { label: 'GitHub', href: 'https://github.com/Jbamidi/FPGA-Edge-Detection-Pipeline', kind: 'github' },
   },
   {
     title: 'Hardware Guitar Auto-Tuner',
@@ -129,7 +130,7 @@ const featuredProjects = [
       'Achieved peg rotation precision within 3 degrees during bench validation.',
     ],
     media: { kind: 'Waveform Scope', label: 'Analog Frequency Window', metric: 'Stable low-noise string correction loop.', tone: 'analog' },
-    link: { label: 'Journal', href: 'https://drive.google.com/', kind: 'journal' },
+    link: { label: 'Journal', href: 'https://drive.google.com/file/d/1ia0KOWbe21YFET0GUzXzy-fnWR_sM_kh/view', kind: 'journal' },
   },
 ];
 
@@ -202,6 +203,16 @@ const skillGroups = [
     items: ['Vivado', 'ModelSim', 'Quartus Prime', 'EDA Playground', 'EPWave', 'Git', 'Linux CLI', 'LabVIEW'],
   },
 ];
+
+const researchFocusAreas = [
+  'Predicting short-term changes in listener state (attention / orientation proxies)',
+  'Predicting spatial audio parameters for smoother rendering (cue stability, reduced jitter)',
+  'Feature engineering from audio + optional sensor signals (IMU/head-tracking if available)',
+  'Evaluating prediction quality vs perceptual outcomes (latency, localization consistency)',
+  'Real-time implementation constraints (low-latency, lightweight models)',
+];
+
+const researchTools = ['Python', 'Signal Processing', 'Machine Learning', 'Real-Time Systems', 'IMU Sensors'];
 
 const containerVariant = {
   hidden: { opacity: 0 },
@@ -485,6 +496,58 @@ function App() {
         </motion.section>
 
         <motion.section
+          id="experience"
+          className="section experience-section"
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={containerVariant}
+        >
+          <SectionHeading
+            eyebrow="Experience"
+            title="Engineering teams and applied hardware development"
+            description="Hands-on roles where system integration, measurement fidelity, and debugging rigor were central."
+          />
+          <div className="experience-grid">
+            {experience.map((entry) => (
+              <motion.article key={entry.role} className="exp-card" variants={itemVariant} whileHover={{ y: -8, scale: 1.01 }}>
+                <div className="exp-head">
+                  <div>
+                    <h3>{entry.role}</h3>
+                    <p className="timeline-meta">
+                      <span>{entry.period}</span>
+                      <span>{entry.location}</span>
+                    </p>
+                  </div>
+                  <span className="exp-badge">
+                    <FiActivity /> Active Impact
+                  </span>
+                </div>
+                <p className="exp-impact">{entry.impact}</p>
+                <div className="exp-metrics">
+                  {entry.metrics.map((metric) => (
+                    <div key={metric.label} className="exp-metric-chip">
+                      <span>{metric.label}</span>
+                      <strong>{metric.value}</strong>
+                    </div>
+                  ))}
+                </div>
+                <ul className="exp-points">
+                  {entry.points.map((point) => (
+                    <li key={point}>{point}</li>
+                  ))}
+                </ul>
+                <div className="chip-row exp-tags">
+                  {entry.tags.map((tag) => (
+                    <span key={tag}>{tag}</span>
+                  ))}
+                </div>
+              </motion.article>
+            ))}
+          </div>
+        </motion.section>
+
+        <motion.section
           id="current-project"
           className="section"
           initial={{ opacity: 0, y: 38, filter: 'blur(8px)' }}
@@ -598,55 +661,45 @@ function App() {
         </motion.section>
 
         <motion.section
-          id="experience"
-          className="section experience-section"
-          initial="hidden"
-          whileInView="show"
+          id="research"
+          className="section research-section"
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
-          variants={containerVariant}
+          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
         >
           <SectionHeading
-            eyebrow="Experience"
-            title="Engineering teams and applied hardware development"
-            description="Hands-on roles where system integration, measurement fidelity, and debugging rigor were central."
+            eyebrow="Research"
+            title="Predictive Spatial Audio Research"
+            description="prediction models | human perception | immersive audio"
           />
-          <div className="experience-grid">
-            {experience.map((entry) => (
-              <motion.article key={entry.role} className="exp-card" variants={itemVariant} whileHover={{ y: -8, scale: 1.01 }}>
-                <div className="exp-head">
-                  <div>
-                    <h3>{entry.role}</h3>
-                    <p className="timeline-meta">
-                      <span>{entry.period}</span>
-                      <span>{entry.location}</span>
-                    </p>
-                  </div>
-                  <span className="exp-badge">
-                    <FiActivity /> Active Impact
-                  </span>
-                </div>
-                <p className="exp-impact">{entry.impact}</p>
-                <div className="exp-metrics">
-                  {entry.metrics.map((metric) => (
-                    <div key={metric.label} className="exp-metric-chip">
-                      <span>{metric.label}</span>
-                      <strong>{metric.value}</strong>
-                    </div>
-                  ))}
-                </div>
-                <ul className="exp-points">
-                  {entry.points.map((point) => (
-                    <li key={point}>{point}</li>
-                  ))}
-                </ul>
-                <div className="chip-row exp-tags">
-                  {entry.tags.map((tag) => (
-                    <span key={tag}>{tag}</span>
-                  ))}
-                </div>
-              </motion.article>
-            ))}
-          </div>
+          <motion.article className="research-card" whileHover={{ y: -6, scale: 1.01 }}>
+            <p className="research-copy">
+              I&apos;m researching prediction for spatial audio: building models that anticipate a listener&apos;s next
+              audio/perception state (e.g., likely direction-of-attention or expected acoustic cues) to improve realism
+              and responsiveness in immersive systems. The goal is to reduce perceived latency and stabilize 3D audio
+              rendering by predicting changes before they happen, then adapting the audio pipeline accordingly.
+            </p>
+            <div className="research-focus">
+              <p>Focus Areas</p>
+              <ul>
+                {researchFocusAreas.map((area) => (
+                  <li key={area}>{area}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="research-tools">
+              <p>Tools</p>
+              <div className="chip-row">
+                {researchTools.map((tool) => (
+                  <span key={tool}>{tool}</span>
+                ))}
+              </div>
+            </div>
+            <a className="project-cta" href="https://github.com/Jbamidi/Immersive-Sound" target="_blank" rel="noreferrer">
+              <FiGithub /> GitHub
+            </a>
+          </motion.article>
         </motion.section>
 
         <motion.section
